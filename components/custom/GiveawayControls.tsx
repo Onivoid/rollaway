@@ -64,7 +64,7 @@ export function GiveawayControls() {
           <div>
             <Button 
               onClick={rollWinner} 
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
+              className="w-full bg-purple-800 hover:bg-purple-800 text-white"
               disabled={participants.length === 0}
             >
               Tirer un gagnant

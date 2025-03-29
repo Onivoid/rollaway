@@ -24,17 +24,17 @@ export function WinnerDisplay() {
   return (
     <>
       {showConfetti && <Confetti />}
-      <Card className="border-indigo-500 shadow-lg shadow-indigo-100 dark:shadow-indigo-900/20 w-md">
-        <CardHeader className="bg-indigo-500 text-white">
+      <Card className="border-purple-800 shadow-lg shadow-purple-100 dark:shadow-purple-900/20 w-md">
+        <CardHeader className="bg-purple-800 text-white">
           <CardTitle className="text-center py-6">Gagnant du Giveaway!</CardTitle>
         </CardHeader>
         <CardContent className="pt-6 text-center">
           <div className="flex flex-col items-center space-y-4">
-            <div className="h-24 w-24 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
+            <div className="h-24 w-24 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
               <span className="text-4xl">🎉</span>
             </div>
             <h2 className="text-2xl font-bold">{winner}</h2>
-            <Badge className="px-3 py-1 text-base bg-indigo-500">Félicitations!</Badge>
+            <Badge className="px-3 py-1 text-base bg-purple-800">Félicitations!</Badge>
             
             <Button variant="outline" onClick={resetWinner} className="mt-4">
               Fermer
