@@ -90,7 +90,7 @@ export function TwitchConnector() {
             <Button 
               onClick={handleConnect} 
               disabled={!channelName} 
-              className="w-full bg-indigo-600 hover:bg-indigo-700"
+              className="w-full bg-purple-800 hover:bg-purple-800 text-foreground"
             >
               Connecter au chat
             </Button>

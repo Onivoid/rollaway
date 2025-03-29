@@ -52,13 +52,13 @@ export function ParticipantList() {
               participants.map((participant) => (
                 <TableRow 
                   key={`${participant.username}-${participant.timestamp}`}
-                  className={winner === participant.username ? "bg-indigo-100 dark:bg-indigo-900/30" : ""}
+                  className={winner === participant.username ? "bg-purple-100 dark:bg-purple-900/30" : ""}
                 >
                   <TableCell className="font-medium">{participant.username}</TableCell>
                   <TableCell>{formatTimestamp(participant.timestamp)}</TableCell>
                   <TableCell className="text-right">
                     {winner === participant.username && (
-                      <Badge className="bg-indigo-600">Gagnant</Badge>
+                      <Badge className="bg-purple-800">Gagnant</Badge>
                     )}
                   </TableCell>
                 </TableRow>
