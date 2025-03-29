@@ -26,7 +26,7 @@ export function NavigationComponent (){
     }, [pathname]);
     console.log(`NavigationComponent rendered with ${pages.length} pages`);
     return(
-        <div className={`grid grid-cols-${pages.length} fixed bottom-10 left-[50%] -translate-x-1/2 gap-3`} >
+        <div className={`grid grid-cols-3 fixed bottom-10 left-[50%] -translate-x-1/2 gap-3`} >
             {pages.map((page) => (
                 <TooltipProvider key={page.name}>
                     <Tooltip>
