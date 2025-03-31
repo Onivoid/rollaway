@@ -15,7 +15,7 @@ import {
 const pages = [
     { name: "Home", path: "/", icon: <House /> },
     { name: "Giveaway", path: "/giveaway", icon: <PartyPopper /> },
-    { name: "Better Chat", path: "/better-chat", icon: <MessagesSquare /> }
+    { name: "Better Chat", path: "/better-chat", icon: <MessagesSquare /> },
 ]
 
 export function NavigationComponent (){

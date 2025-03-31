@@ -5,7 +5,7 @@ import tmi from "tmi.js";
 
 interface UseTwitchChatOptions {
     channel: string;
-    onMessage: (username: string, message: string) => void;
+    onMessage: (username: string, message: string, tags: tmi.ChatUserstate) => void;
 }
 
 export function useTwitchChat({ channel, onMessage }: UseTwitchChatOptions) {
@@ -40,7 +40,6 @@ export function useTwitchChat({ channel, onMessage }: UseTwitchChatOptions) {
             disconnectFromChat();
 
             console.log(`Connexion au chat de ${channel}...`);
-            
             const client = new tmi.Client({
                 options: { debug: true },
                 connection: {
@@ -61,7 +60,7 @@ export function useTwitchChat({ channel, onMessage }: UseTwitchChatOptions) {
                 const username = tags.username || tags["display-name"] || "anonyme";
                 
                 console.log(`Transmission du message: [${username}] ${message}`);
-                onMessageRef.current(username, message);
+                onMessageRef.current(username, message, tags);
             });
 
             client.on("connected", (address, port) => {
