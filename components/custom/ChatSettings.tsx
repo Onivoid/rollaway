@@ -112,7 +112,7 @@ export function ChatSettings({
                 </div>
 
                 <div className="space-y-4">
-                    <h3 className="font-semibold">Options d'affichage</h3>
+                    <h3 className="font-semibold">Options d&apos;affichage</h3>
                     
                     <div className="flex justify-between items-center">
                         <Label htmlFor="show-badges">Afficher les badges</Label>

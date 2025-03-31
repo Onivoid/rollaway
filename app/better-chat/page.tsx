@@ -6,7 +6,6 @@ import { TwitchChatViewer } from "@/components/custom/TwitchChatViewer";
 import { ChatSettings } from "@/components/custom/ChatSettings";
 import { ChatFilters } from "@/components/custom/ChatFilters";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { MessageSquare, Settings2, Filter } from "lucide-react";
 import { ChatSettingsProvider } from "@/context/ChatSettingsContext";
 

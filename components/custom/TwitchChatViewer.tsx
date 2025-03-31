@@ -160,7 +160,7 @@ export function TwitchChatViewer({ channelName }: TwitchChatViewerProps) {
                 isVip: tags.badges?.vip === "1",
                 isHighlighted: tags["msg-id"] === "highlighted-message",
                 badges: Object.fromEntries(
-                    Object.entries(tags.badges || {}).filter(([_, value]) => value !== undefined)
+                    Object.entries(tags.badges || {}).filter(([_, value]) => value !== undefined) //eslint-disable-line
                 ) as Record<string, string>,
                 color: tags.color || "#FFFFFF",
             };
@@ -210,7 +210,7 @@ export function TwitchChatViewer({ channelName }: TwitchChatViewerProps) {
             return null;
         }
         
-        return Object.entries(badges).map(([badge, version]) => {
+        return Object.entries(badges).map(([badge]) => {
             let badgeText = badge;
             let badgeColor = "bg-gray-600";
 
