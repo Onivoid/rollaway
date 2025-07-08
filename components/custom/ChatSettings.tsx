@@ -17,7 +17,6 @@ import {
     SelectTrigger,
     SelectValue
 } from "@/components/ui/select";
-import { useTwitchChat } from "@/hooks/useTwitchChat";
 import { useChatSettings } from "@/context/ChatSettingsContext";
 
 interface ChatSettingsProps {
@@ -34,21 +33,14 @@ export function ChatSettings({
     setIsConnected 
 }: ChatSettingsProps) {
     const { settings, updateSettings } = useChatSettings();
-    
-    const { error, connectToChat, disconnectFromChat } = useTwitchChat({
-        channel: channelName,
-        onMessage: () => {} // Cette fonction sera gérée par le composant TwitchChatViewer
-    });
 
     const handleConnect = () => {
         if (channelName) {
-            connectToChat();
             setIsConnected(true);
         }
     };
 
     const handleDisconnect = () => {
-        disconnectFromChat();
         setIsConnected(false);
     };
 
@@ -78,7 +70,7 @@ export function ChatSettings({
                             </Button>
                         )}
                     </div>
-                    {error && <p className="text-red-500 text-sm">{error}</p>}
+                    {/* Removed error display since connection is managed by TwitchChatViewer */}
                 </div>
 
                 <div className="space-y-4">
