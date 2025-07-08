@@ -38,7 +38,7 @@ export function TwitchChatViewer({ channelName, isConnected }: TwitchChatViewerP
     const currentChannelRef = useRef<string | null>(null);
 
     // Fonction de filtrage des messages - updates when settings change
-    const shouldDisplayMessage = (msg: ChatMessage) => {
+    const shouldDisplayMessage = useCallback((msg: ChatMessage) => {
         // Filtrer par nom d'utilisateur
         if (settings.filteredUsernames && settings.filteredUsernames.length > 0) {
             if (settings.filteredUsernames.some(username => 
