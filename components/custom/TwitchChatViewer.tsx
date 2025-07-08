@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import tmi from "tmi.js";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -73,7 +73,7 @@ export function TwitchChatViewer({ channelName, isConnected }: TwitchChatViewerP
         }
 
         return true;
-    };
+    }, [settings]);
 
     // Fonction pour déconnecter et nettoyer
     const disconnectAndCleanup = () => {
