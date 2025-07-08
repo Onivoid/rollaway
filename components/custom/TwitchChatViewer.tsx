@@ -24,29 +24,11 @@ interface ChatMessage {
 
 interface TwitchChatViewerProps {
     channelName: string;
+    isConnected: boolean;
 }
 
-export function TwitchChatViewer({ channelName }: TwitchChatViewerProps) {
-    let settings;
-    try {
-        const chatSettings = useChatSettings();
-        settings = chatSettings.settings;
-        console.log("Paramètres du chat chargés :", settings);
-    } catch (error) {
-        console.error("Erreur lors du chargement du contexte de paramètres :", error);
-        settings = {
-            fontSize: "medium",
-            showBadges: true,
-            showTimestamps: true,
-            highlightMentions: true,
-            highlightMods: true,
-            filteredKeywords: [],
-            filteredUsernames: [],
-            showOnlySubscribers: false,
-            showOnlyMods: false,
-            compactMode: false
-        };
-    }
+export function TwitchChatViewer({ channelName, isConnected }: TwitchChatViewerProps) {
+    const { settings } = useChatSettings();
     
     const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [connected, setConnected] = useState(false);
@@ -55,8 +37,8 @@ export function TwitchChatViewer({ channelName }: TwitchChatViewerProps) {
     const isConnectingRef = useRef(false);
     const currentChannelRef = useRef<string | null>(null);
 
-    // Fonction de filtrage des messages
-    const shouldDisplayMessage = useRef((msg: ChatMessage) => {
+    // Fonction de filtrage des messages - updates when settings change
+    const shouldDisplayMessage = (msg: ChatMessage) => {
         // Filtrer par nom d'utilisateur
         if (settings.filteredUsernames && settings.filteredUsernames.length > 0) {
             if (settings.filteredUsernames.some(username => 
@@ -91,7 +73,7 @@ export function TwitchChatViewer({ channelName }: TwitchChatViewerProps) {
         }
 
         return true;
-    }).current;
+    };
 
     // Fonction pour déconnecter et nettoyer
     const disconnectAndCleanup = () => {
@@ -107,6 +89,12 @@ export function TwitchChatViewer({ channelName }: TwitchChatViewerProps) {
     };
 
     useEffect(() => {
+        // If not supposed to be connected, disconnect and cleanup
+        if (!isConnected) {
+            disconnectAndCleanup();
+            return;
+        }
+
         // Vérifier si le canal a changé
         if (currentChannelRef.current !== channelName) {
             // Déconnexion et nettoyage de l'ancienne connexion
@@ -165,8 +153,6 @@ export function TwitchChatViewer({ channelName }: TwitchChatViewerProps) {
                 color: tags.color || "#FFFFFF",
             };
             
-            console.log(`Message reçu: ${newMessage.displayName}: ${newMessage.message}`);
-
             setMessages(prev => [...prev, newMessage]);
             
             // Faire défiler vers le bas
@@ -194,18 +180,18 @@ export function TwitchChatViewer({ channelName }: TwitchChatViewerProps) {
         return () => {
             disconnectAndCleanup();
         };
-    }, [channelName]); // Dépendance uniquement sur channelName
+    }, [channelName, isConnected]); // Depend on both channelName and isConnected
 
-    // Ne pas recréer ces fonctions à chaque rendu
-    const adjustColor = useRef((color: string) => {
+    // Function to adjust color - updates when needed
+    const adjustColor = (color: string) => {
         if (!color || color === "#FFFFFF") {
             const hue = Math.floor(Math.random() * 360);
             return `hsl(${hue}, 70%, 70%)`;
         }
         return color;
-    }).current;
+    };
 
-    const renderBadges = useRef((badges: Record<string, string>) => {
+    const renderBadges = (badges: Record<string, string>) => {
         if (!settings.showBadges || !badges || Object.keys(badges).length === 0) {
             return null;
         }
@@ -234,17 +220,17 @@ export function TwitchChatViewer({ channelName }: TwitchChatViewerProps) {
                 </Badge>
             );
         });
-    }).current;
+    };
 
-    const getFontSizeClass = useRef(() => {
+    const getFontSizeClass = () => {
         switch (settings.fontSize) {
             case "small": return "text-xs";
             case "large": return "text-lg";
             default: return "text-base";
         }
-    }).current;
+    };
 
-    console.log(`Rendu de TwitchChatViewer avec ${messages.length} messages`);
+    console.log(`TwitchChatViewer render: channel=${channelName}, connected=${isConnected}, messages=${messages.length}`);
 
     return (
         <div className="h-full flex flex-col">

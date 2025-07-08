@@ -57,7 +57,10 @@ export default function BetterChatPage() {
                                     </CardHeader>
                                     <CardContent className="p-0 h-[calc(70vh-60px)]">
                                         {isConnected ? (
-                                            <TwitchChatViewer channelName={channelName} />
+                                            <TwitchChatViewer 
+                                                channelName={channelName} 
+                                                isConnected={isConnected}
+                                            />
                                         ) : (
                                             <div className="flex items-center justify-center h-full text-muted-foreground">
                                                 Connectez-vous à un canal pour voir le chat
